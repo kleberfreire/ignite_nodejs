@@ -1,5 +1,5 @@
-tmp/
-avatar/
+tmp/avatar/*
+avatar/*
 node_modules
 .git
 .vscode
