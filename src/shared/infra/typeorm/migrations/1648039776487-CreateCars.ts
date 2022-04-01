@@ -12,6 +12,10 @@ export class CreateCars1648039776487 implements MigrationInterface {
             isPrimary: true,
           },
           {
+            name: "name",
+            type: "varchar",
+          },
+          {
             name: "description",
             type: "varchar",
           },

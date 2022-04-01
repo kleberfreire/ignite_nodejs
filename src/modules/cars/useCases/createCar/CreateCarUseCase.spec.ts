@@ -60,7 +60,7 @@ describe("Create Car", () => {
       brand: "test brand",
       category_id: "test category_id",
     });
-    console.log(car);
+
     expect(car.available).toBe(true);
   });
 });
