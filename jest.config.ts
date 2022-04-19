@@ -1,8 +1,8 @@
 import { pathsToModuleNameMapper } from "ts-jest/utils";
 import { compilerOptions } from "./tsconfig.json";
 export default {
-  // All imported modules in your tests should be mocked automatically
-  // automock: false,
+  // All imported modules in your tests should be mocked automatically48
+  // automock: false,9
 
   // Stop running tests after `n` failures
   bail: true,

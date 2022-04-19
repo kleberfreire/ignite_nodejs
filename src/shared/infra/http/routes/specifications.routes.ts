@@ -8,7 +8,6 @@ const specificationRoutes = Router();
 const createSpecificationController = new CreateSpecificationController();
 const listSpecificationController = new ListSpecificationController();
 
-specificationRoutes.use(ensureAuthenticated);
 specificationRoutes.post(
   "/",
   ensureAuthenticated,
