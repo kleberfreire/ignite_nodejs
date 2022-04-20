@@ -3,7 +3,7 @@ import { ICreateCarDTO } from "./../../DTOs/ICreateCarDTO";
 
 import { ICarsRepository } from "./../ICarsRepository";
 
-export class CarRepositoyInMemory implements ICarsRepository {
+export class CarRepositoryInMemory implements ICarsRepository {
   private cars: Car[];
   constructor() {
     this.cars = [];
@@ -34,5 +34,9 @@ export class CarRepositoyInMemory implements ICarsRepository {
 
   async findByLicensePlate(license_plate: string): Promise<Car> {
     return this.cars.find((car) => car.license_plate === license_plate);
+  }
+
+  async list(): Promise<Car[]> {
+    return this.cars;
   }
 }

@@ -1,9 +1,9 @@
+import { AuthenticateUserController } from "@modules/accounts/useCases/authenticateUser/AuthenticateUserController";
 import { Router } from "express";
-import { AthenticateUserController } from "@modules/accounts/useCases/authenticateUser/AthenticateUserController";
 
 const authenticateRoutes = Router();
 
-const authenticateUserController = new AthenticateUserController();
+const authenticateUserController = new AuthenticateUserController();
 
 authenticateRoutes.post("/sessions", authenticateUserController.handle);
 

@@ -38,4 +38,9 @@ export class CarsRepository implements ICarsRepository {
 
     return car;
   }
+
+  async list(): Promise<Car[]> {
+    const cars = await this.repository.find();
+    return cars;
+  }
 }

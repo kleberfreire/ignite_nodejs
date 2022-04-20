@@ -6,7 +6,7 @@ import { UpdateUserAvatarController } from "@modules/accounts/useCases/UpdateUse
 
 import { ListUsersController } from "@roots/modules/accounts/useCases/listUsers/ListUsersController";
 
-import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAthenticated";
+import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthenticated";
 
 const createUserController = new CreateUserController();
 const updateUserAvatarController = new UpdateUserAvatarController();
