@@ -2,16 +2,16 @@ import { CarRepositoryInMemory } from "../../repositories/in-memory/CarsReposito
 import { ListCarsUseCase } from "./ListCarsUseCase";
 
 let listCarsUseCase: ListCarsUseCase;
-let carsRepository: CarRepositoryInMemory;
+let carRepositoryInMemory: CarRepositoryInMemory;
 
 describe("List Cars", () => {
   beforeEach(() => {
-    carsRepository = new CarRepositoryInMemory();
-    listCarsUseCase = new ListCarsUseCase(carsRepository);
+    carRepositoryInMemory = new CarRepositoryInMemory();
+    listCarsUseCase = new ListCarsUseCase(carRepositoryInMemory);
   });
 
   it("should be able to list all cars", async () => {
-    const car1 = await carsRepository.create({
+    const car1 = await carRepositoryInMemory.create({
       name: "Fusca",
       description: "Carro popular brasileiro",
       daily_rate: 100,
@@ -21,7 +21,7 @@ describe("List Cars", () => {
       category_id: "testCategory",
     });
 
-    const car2 = await carsRepository.create({
+    const car2 = await carRepositoryInMemory.create({
       name: "Gol",
       description: "Carro popular brasileiro",
       daily_rate: 100,
@@ -35,4 +35,6 @@ describe("List Cars", () => {
 
     expect(cars).toEqual([car1, car2]);
   });
+
+  it("should be able to list all available cars by name", async () => {});
 });
