@@ -3,10 +3,19 @@ import { ICreateCarDTO } from "./../../DTOs/ICreateCarDTO";
 
 import { ICarsRepository } from "./../ICarsRepository";
 
+interface IFindAvailableParams {
+  category_id?: string;
+  brand?: string;
+  name?: string;
+}
+
 export class CarRepositoryInMemory implements ICarsRepository {
   private cars: Car[];
   constructor() {
     this.cars = [];
+  }
+  async findById(id: string): Promise<Car> {
+    return this.cars.find((car) => car.id === id);
   }
 
   async create({
@@ -36,18 +45,36 @@ export class CarRepositoryInMemory implements ICarsRepository {
     return this.cars.find((car) => car.license_plate === license_plate);
   }
 
-  async findAvailable({ categoy_id, brand, name }): Promise<Car[]> {
-    const all = this.cars.filter((car) => {
-      if (
-        car.available === true &&
-        ((brand && car.brand === brand) ||
-          (categoy_id && car.category_id === categoy_id) ||
-          (name && car.name === name))
-      ) {
-        return car;
-      }
-    });
+  async findAvailable({
+    category_id,
+    brand,
+    name,
+  }: IFindAvailableParams): Promise<Car[]> {
+    // let all = this.cars.filter((car) => {
+    //   if (
+    //     car.available === true ||
+    //     (brand && car.brand === brand) ||
+    //    (category_id && car.category_id === category_id) ||
+    //     (name && car.name === name)
+    //   ) {
+    //     return car;
+    //   }
+    // });
+    let all = this.cars.filter((car) => car.available === true);
+    if (category_id || brand || name) {
+      all = all.filter((car) => {
+        if (car.category_id === category_id) {
+          return car;
+        }
+        if (car.brand === brand) {
+          return car;
+        }
 
+        if (car.name === name) {
+          return car;
+        }
+      });
+    }
     return all;
   }
 }
