@@ -19,10 +19,14 @@ export class SpecificationsRepositoryInMemory
   async list(): Promise<Specification[]> {
     return this.specifications;
   }
-  async create({ name, description }: ICreateSpecificationDTO): Promise<void> {
+  async create({
+    name,
+    description,
+  }: ICreateSpecificationDTO): Promise<Specification> {
     const specification = new Specification();
     Object.assign(specification, { name, description });
     this.specifications.push(specification);
+    return specification;
   }
   async findByIds(id: string[]): Promise<Specification[]> {
     return this.specifications.filter((specification) =>

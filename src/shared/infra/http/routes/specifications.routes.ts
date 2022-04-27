@@ -15,8 +15,6 @@ specificationRoutes.post(
   createSpecificationController.handle
 );
 
-specificationRoutes.get("/", (request, response) => {
-  return listSpecificationController.handle(request, response);
-});
+specificationRoutes.get("/", listSpecificationController.handle);
 
 export { specificationRoutes };
