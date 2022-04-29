@@ -8,7 +8,6 @@ interface IFiles {
 
 export class UploadCarImagesController {
   async handle(request: Request, response: Response): Promise<Response> {
-    console.log("aqui");
     const { id } = request.params;
     const images = request.files as IFiles[];
 
@@ -17,8 +16,6 @@ export class UploadCarImagesController {
     const fileNames = images.map((image) => {
       return image.filename;
     });
-
-    console.log("aqui");
 
     await uploadCarImagesUseCase.execute({ car_id: id, image_name: fileNames });
 

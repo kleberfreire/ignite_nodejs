@@ -27,7 +27,6 @@ export class UploadCarImagesUseCase {
       await this.carsImagesRepository.create(car_id, image);
     });
 
-    console.log({ car_id, image_name });
     return;
   }
 }
