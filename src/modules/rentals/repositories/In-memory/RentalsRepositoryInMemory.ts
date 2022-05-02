@@ -1,4 +1,5 @@
-import { ICreateRentailDTO } from "../../dtos/ICreateRentailDTO";
+import { ICreateRentalDTO } from "@modules/rentals/dtos/ICreateRentalDTO";
+
 import { Rental } from "../../infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "../IRentalsRepository";
 
@@ -20,7 +21,7 @@ export class RentalsRepositoryInMemory implements IRentalsRepository {
     car_id,
     user_id,
     expect_return_date,
-  }: ICreateRentailDTO): Promise<Rental> {
+  }: ICreateRentalDTO): Promise<Rental> {
     const rental = new Rental();
 
     Object.assign(rental, {
