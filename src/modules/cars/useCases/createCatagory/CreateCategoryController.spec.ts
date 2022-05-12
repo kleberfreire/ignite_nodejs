@@ -1,8 +1,8 @@
 import { hash } from "bcryptjs";
 import { v4 as uuidV4 } from "uuid";
+import createConnection from "@shared/infra/typeorm";
 import { Connection } from "typeorm";
 import { app } from "@shared/infra/http/app";
-import createConnection from "@shared/infra/typeorm";
 
 import request from "supertest";
 
@@ -15,10 +15,9 @@ describe("Create Category Controller", () => {
   beforeAll(async () => {
     connection = await createConnection();
     connection.runMigrations();
-    await connection.query(
-      `INSERT INTO USERS (id, name, password, email, "isAdmin", created_at, driver_license) VALUES ('${admin.id}', 'admin', '${admin.password}', 'admin@admin.com' , true, 'now()', 'XXX.XXX.XXX-XX')`
-    );
-
+    // await connection.query(
+    //   `INSERT INTO USERS (id, name, password, email, "isAdmin", created_at, driver_license) VALUES ('${admin.id}', 'admin', '${admin.password}', 'admin@admin.com' , true, 'now()', 'XXX.XXX.XXX-XX')`
+    // );
   });
 
   afterAll(async () => {

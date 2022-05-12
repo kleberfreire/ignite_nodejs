@@ -10,4 +10,5 @@ export interface ICreateCarDTO {
   category_id: string;
   specifications?: Specification[];
   id?: string;
+  available?: boolean;
 }
