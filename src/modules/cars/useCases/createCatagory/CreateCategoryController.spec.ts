@@ -14,9 +14,11 @@ describe("Create Category Controller", () => {
   };
   beforeAll(async () => {
     connection = await createConnection();
-    connection.runMigrations();
+    await connection.runMigrations();
     await connection.query(
-      `INSERT INTO USERS (id, name, password, email, "isAdmin", created_at, driver_license) VALUES ('${admin.id}', 'admin', '${admin.password}', 'admin@admin.com' , true, 'now()', 'XXX.XXX.XXX-XX')`
+      `INSERT INTO USERS (id, name, password, email, "isAdmin", created_at, driver_license) VALUES ('${
+        admin.id
+      }', 'admin', '${await admin.password}', 'admin@admin.com' , true, 'now()', 'XXX.XXX.XXX-XX')`
     );
   });
 
