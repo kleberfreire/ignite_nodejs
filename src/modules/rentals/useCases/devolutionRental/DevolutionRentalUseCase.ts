@@ -14,8 +14,8 @@ export class DevolutionRentalUseCase {
   constructor(
     @inject("CarsRepository")
     private carsRepository: ICarsRepository,
-    @inject("DateProvider")
-    private dateProvider: IDateProvider,
+    @inject("DayjsDateProvider")
+    private dayjsDateProvider: IDateProvider,
     @inject("RentalsRepository")
     private rentalsRepository: IRentalsRepository
   ) {}
@@ -23,19 +23,22 @@ export class DevolutionRentalUseCase {
   async execute({ id, user_id }): Promise<Rental> {
     const rental = await this.rentalsRepository.findById(id);
     const car = await this.carsRepository.findById(rental.car_id);
-    const dateNow = this.dateProvider.dateNow();
+    const dateNow = this.dayjsDateProvider.dateNow();
     const minimum_daily = 1;
 
     if (!rental) {
       throw new AppError("Rental not found");
     }
 
-    let daily = this.dateProvider.compareInDays(rental.start_date, dateNow);
+    let daily = this.dayjsDateProvider.compareInDays(
+      rental.start_date,
+      dateNow
+    );
 
     if (daily <= 0) {
       daily = minimum_daily;
     }
-    const delay = this.dateProvider.compareInDays(
+    const delay = this.dayjsDateProvider.compareInDays(
       dateNow,
       rental.expect_return_date
     );

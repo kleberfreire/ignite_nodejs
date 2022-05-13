@@ -15,8 +15,8 @@ export class CreateRentalUseCase {
   constructor(
     @inject("RentalsRepository")
     private rentalsRepository: IRentalsRepository,
-    @inject("DateProvider")
-    private dateProvider: IDateProvider,
+    @inject("DayjsDateProvider")
+    private dayjsDateProvider: IDateProvider,
     @inject("CarsRepository")
     private carsRepository: ICarsRepository
   ) {}
@@ -27,7 +27,7 @@ export class CreateRentalUseCase {
     expect_return_date,
   }: IRequest): Promise<Rental> {
     const minimumHours = 24;
-    const dateNow = this.dateProvider.dateNow();
+    const dateNow = this.dayjsDateProvider.dateNow();
     const carUnavailable = await this.rentalsRepository.findOpenRentalByCar(
       car_id
     );
@@ -43,7 +43,7 @@ export class CreateRentalUseCase {
       throw new AppError("There's a rental in progress for user!");
     }
 
-    const compare = this.dateProvider.compareInHours(
+    const compare = this.dayjsDateProvider.compareInHours(
       dateNow,
       expect_return_date
     );
