@@ -7,7 +7,7 @@ import { sign } from "jsonwebtoken";
 
 import { AppError } from "@shared/errors/AppError";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
-import auth from "@roots/config/auth";
+import { auth } from "@roots/config/auth";
 
 interface IRequest {
   email: string;
