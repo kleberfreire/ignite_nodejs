@@ -2,9 +2,10 @@ import { inject, injectable } from "tsyringe";
 import { v4 as uuidV4 } from "uuid";
 
 import { AppError } from "@shared/errors/AppError";
+import { resolve } from "path";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { IDateProvider } from "@roots/shared/container/providers/DateProvider/IDateProvider";
-import { IUsersTokensRepository } from "../repositories/IUsersTokensRepository";
+import { IUsersTokensRepository } from "../../repositories/IUsersTokensRepository";
 import { IMailProvider } from "@shared/container/providers/MailProvider/IMailProvider";
 
 @injectable()
@@ -23,6 +24,15 @@ export class SendForgotPasswordMailUseCase {
   async execute(email: string) {
     const user = await this.usersRepository.findByEmail(email);
 
+    const templatePath = resolve(
+      __dirname,
+      "..",
+      "..",
+      "views",
+      "emails",
+      "forgotPassword.hbs"
+    );
+
     if (!user) {
       throw new AppError("User already exists!");
     }
@@ -35,9 +45,18 @@ export class SendForgotPasswordMailUseCase {
       refresh_token: token,
       user_id: user.id,
       expires_date,
-
     });
 
-    await this.mailProvider.sendMail(email, "Recuperação de senha", `O link para recuperar a senha é: http://localhost:3000/reset-password?token=${token}`);
+    const variables = {
+      name: user.name,
+      link: `${process.env.FORGOT_MAIL_URL}=${token}`,
+    };
+
+    await this.mailProvider.sendMail(
+      email,
+      "Recuperação de senha",
+      variables,
+      templatePath
+    );
   }
 }

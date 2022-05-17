@@ -32,4 +32,10 @@ export class DayjsDateProvider implements IDateProvider {
   addHours(hours: number): Date {
     return dayjs().add(hours, "hour").toDate();
   }
+
+  compareIfBefore(start_date: Date, date_to_compare: Date) {
+    const start_date_utc = this.convertToUTC(start_date);
+    const date_to_compare_utc = this.convertToUTC(date_to_compare);
+    return dayjs(start_date_utc).isBefore(date_to_compare_utc);
+  }
 }
