@@ -15,7 +15,7 @@ const listUsersController = new ListUsersController();
 import uploadConfig from "@config/upload";
 import { ensureAdmin } from "@shared/infra/http/middlewares/ensureAdmin";
 
-const uploadAvatar = multer(uploadConfig.upload("./tmp/avatar"));
+const uploadAvatar = multer(uploadConfig);
 
 const userRoutes = Router();
 
@@ -30,6 +30,8 @@ userRoutes.get("/", listUsersController.handle);
 userRoutes.patch(
   "/avatar",
   uploadAvatar.single("avatar"),
+  ensureAuthenticated,
+  ensureAdmin,
   updateUserAvatarController.handle
 );
 
