@@ -1,3 +1,4 @@
+import { ProfileUserController } from "./../../../../modules/accounts/useCases/profileUser/ProfileUserController";
 import { Router } from "express";
 import multer from "multer";
 
@@ -11,6 +12,7 @@ import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthen
 const createUserController = new CreateUserController();
 const updateUserAvatarController = new UpdateUserAvatarController();
 const listUsersController = new ListUsersController();
+const profileUserController = new ProfileUserController();
 
 import uploadConfig from "@config/upload";
 import { ensureAdmin } from "@shared/infra/http/middlewares/ensureAdmin";
@@ -26,6 +28,7 @@ userRoutes.post(
   createUserController.handle
 );
 userRoutes.get("/", listUsersController.handle);
+userRoutes.get("/profile", ensureAuthenticated, profileUserController.handle);
 
 userRoutes.patch(
   "/avatar",

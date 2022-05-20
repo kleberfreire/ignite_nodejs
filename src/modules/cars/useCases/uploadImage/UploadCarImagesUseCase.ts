@@ -23,10 +23,10 @@ export class UploadCarImagesUseCase {
     private storageProvider: IStorageProvider
   ) {}
   async execute({ car_id, image_name }: IRequest): Promise<CarImage> {
-    const carExists = await this.carsRepository.findById(car_id);
-    if (!carExists) {
-      throw new AppError("Car does not exists", 400);
-    }
+    // const carExists = await this.carsRepository.findById(car_id);
+    // if (!carExists) {
+    //   throw new AppError("Car does not exists", 400);
+    // }
 
     image_name.map(async (image) => {
       await this.storageProvider.saveFile(image, "cars");
